@@ -1,0 +1,23 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "2.3.0",
+	"FriendlyName": "HFSM2",
+	"Description": "Hierarchical Finite State Machine 2",
+	"Category": "State Machines",
+	"CreatedBy": "Andrew Gresyk",
+	"CreatedByURL": "https://www.twitter.com/andrew_gresyk",
+	"DocsURL": "https://hfsm.dev",
+	"MarketplaceURL": "https://github.com/andrew-gresyk/HFSM2-uplugin",
+	"SupportURL": "https://discord.gg/v4t3tzh",
+	"EngineVersion": "5.2.0",
+	"CanContainContent": false,
+	"Installed": true,
+	"Modules": [
+		{
+			"Name": "HFSM2",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	]
+}
