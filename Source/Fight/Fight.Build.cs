@@ -21,9 +21,5 @@ public class Fight : ModuleRules
 			"Slate",
 			"SlateCore"
 		});
-
-		//PrivateDependencyModuleNames.AddRange(new string[] {
-		//	"OnlineSubsystem",
-		//);
 	}
 }

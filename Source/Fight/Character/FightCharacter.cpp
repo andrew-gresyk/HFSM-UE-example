@@ -8,8 +8,6 @@
 #include "PaperFlipbook.h"
 #include "PaperFlipbookComponent.h"
 
-//UE_DISABLE_OPTIMIZATION
-
 DECLARE_LOG_CATEGORY_CLASS(LogFightCharacter, Log, All);
 
 #include "FightCharacterFsm.inl"
@@ -51,16 +49,7 @@ bool FFightCharacterFsmHost::Identical(const FFightCharacterFsmHost* InOther, ui
 		const FightCharacter::FSM& OtherFsm = FightCharacter::GetFSM(InOther->FsmStorage);
 		OtherFsm.save(OtherSerialBuffer);
 
-		if (SerialBuffer == OtherSerialBuffer)
-		{
-			//UE_LOG(LogFightCharacter, Warning, TEXT("FFightCharacterFsmHost::Identical() // Identical"));
-			return true;
-		}
-		else
-		{
-			//UE_LOG(LogFightCharacter, Warning, TEXT("FFightCharacterFsmHost::Identical() // Different"));
-			return false;
-		}
+		return SerialBuffer == OtherSerialBuffer;
 	}
 }
 
@@ -103,7 +92,6 @@ AFightCharacter::AFightCharacter(const FObjectInitializer& InObjectInitializer)
 	: Super{InObjectInitializer}
 {
 	bReplicates = true;
-	//SetNetDormancy(ENetDormancy::DORM_DormantAll);
 }
 
 void AFightCharacter::SetupPlayerInputComponent(UInputComponent* InPlayerInputComponent)
@@ -283,5 +271,3 @@ void AFightCharacter::Server_Jump_Implementation()
 }
 
 #pragma endregion AFightCharacter
-
-//UE_ENABLE_OPTIMIZATION

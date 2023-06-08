@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class FightTarget : TargetRules
 {
-	public FightTarget( TargetInfo Target) : base(Target)
+	public FightTarget(TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Game;
 		DefaultBuildSettings = BuildSettingsVersion.V2;

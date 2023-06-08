@@ -33,3 +33,9 @@ Multiplayer game example build in Unreal Engine using [HFSM2](https://hfsm.dev) 
 - Twitter: **[@andrew_gresyk](https://www.twitter.com/andrew_gresyk)**
 - Discord: **[HFSM.dev](https://discord.gg/v4t3tzh)**
 - Gitter: **[andrew-gresyk/HFSM2](https://gitter.im/andrew-gresyk/HFSM2)**
+
+---
+
+## 3rd Party Assets
+
+- [Streets of Fight by ansimuz](https://ansimuz.itch.io/streets-of-fight)

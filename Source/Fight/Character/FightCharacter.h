@@ -38,12 +38,8 @@ struct TStructOpsTypeTraits<FFightCharacterFsmHost>
 {
 	enum
 	{
-	//	WithIdenticalViaEquality   = false,	// struct can be compared via its operator==.  This should be mutually exclusive with WithIdentical.
-		WithIdentical              = true,	// struct can be compared via an Identical(const T* Other, uint32 PortFlags) function.  This should be mutually exclusive with WithIdenticalViaEquality.
-
-		WithNetSerializer          = true,	// struct has a NetSerialize function for serializing its state to an FArchive used for network replication.
-	//	WithNetDeltaSerializer     = false,	// struct has a NetDeltaSerialize function for serializing differences in state from a previous NetSerialize operation.
-	//	WithNetSharedSerialization = false,	// struct has a NetSerialize function that does not require the package map to serialize its state.
+		WithIdentical     = true,
+		WithNetSerializer = true,
 	};
 };
 

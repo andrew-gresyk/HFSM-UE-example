@@ -2,17 +2,12 @@
 
 #pragma once
 
-#include "GameFramework/GameMode.h"
-//#include "GameFramework/GameModeBase.h"
+#include "GameFramework/GameModeBase.h"
 
 #include "FightGameModeBase.generated.h"
 
 UCLASS()
-class FIGHT_API AFightGameModeBase : public AGameMode // Base
+class FIGHT_API AFightGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
-
-	// AGameModeBase
-	//virtual void PostLogin(APlayerController* InNewPlayer) override final;
-	//virtual void Logout(AController* InExiting) override final;
 };
