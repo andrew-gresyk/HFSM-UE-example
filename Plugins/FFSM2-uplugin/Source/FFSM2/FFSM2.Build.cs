@@ -1,4 +1,4 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
+// Created by Andrew Gresyk, see https://flat.hfsm.dev.
 
 using UnrealBuildTool;
 

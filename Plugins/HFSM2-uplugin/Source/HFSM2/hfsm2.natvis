@@ -1,1 +1,282 @@
-C:/Work/HFSM2-experimental/hfsm2.natvis
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- https://docs.microsoft.com/en-us/visualstudio/debugger/format-specifiers-in-cpp -->
+
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+	<Type Name="std::type_index">
+		<DisplayString Condition="_Tptr->_Data._UndecoratedName">{_Tptr->_Data._UndecoratedName,sb}</DisplayString>
+		<DisplayString Condition="_Tptr->_Data._DecoratedName[5]=='$'">
+			{&amp;_Tptr->_Data._DecoratedName[6],[strchr(_Tptr->_Data._DecoratedName,'@') - _Tptr->_Data._DecoratedName - 6]sb}
+			&lt;
+			{strstr(_Tptr->_Data._DecoratedName,"@V") + 2,[strstr(_Tptr->_Data._DecoratedName,"@?") - strstr(_Tptr->_Data._DecoratedName,"@V") - 2]sb}
+			&gt;
+		</DisplayString>
+		<DisplayString>{&amp;_Tptr->_Data._DecoratedName[4],[strchr(_Tptr->_Data._DecoratedName,'@') - _Tptr->_Data._DecoratedName - 4]sb}</DisplayString>
+		<!--
+		<Expand HideRawView="true" />
+		-->
+	</Type>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+	<Type Name="hfsm2::detail::ArrayT&lt;*&gt;">
+		<DisplayString>&lt;{(unsigned) _count &amp; 0xFF}&gt;</DisplayString>
+		<Expand HideRawView="true">
+			<ArrayItems>
+				<Size>_count</Size>
+				<ValuePointer>_items</ValuePointer>
+			</ArrayItems>
+		</Expand>
+	</Type>
+
+	<!-- ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
+
+	<Type Name="hfsm2::detail::StaticArrayT&lt;*&gt;">
+		<Expand HideRawView="true">
+			<ArrayItems>
+				<Size>$T2</Size>
+				<ValuePointer>_items</ValuePointer>
+			</ArrayItems>
+		</Expand>
+	</Type>
+
+	<!-- ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
+
+	<Type Name="hfsm2::detail::BitArrayT&lt;*&gt;">
+		<Expand HideRawView="true">
+			<IndexListItems>
+				<Size>CAPACITY</Size>
+				<ValueNode>(_storage[$i / 8] &gt;&gt; ($i % 8)) &amp; 0x1</ValueNode>
+			</IndexListItems>
+		</Expand>
+	</Type>
+
+	<Type Name="hfsm2::detail::BitArrayT&lt;*&gt;::Bits">
+		<DisplayString>&lt;{CAPACITY &amp; 0x1}&gt;</DisplayString>
+		<Expand HideRawView="true">
+			<IndexListItems>
+				<Size>CAPACITY</Size>
+				<ValueNode>(_storage[$i / 8] &gt;&gt; ($i % 8)) &amp; 0x1</ValueNode>
+			</IndexListItems>
+		</Expand>
+	</Type>
+
+	<Type Name="hfsm2::detail::BitArrayT&lt;*&gt;::CBits">
+		<Expand HideRawView="true">
+			<IndexListItems>
+				<Size>CAPACITY</Size>
+				<ValueNode>(_storage[$i / 8] &gt;&gt; ($i % 8)) &amp; 0x1</ValueNode>
+			</IndexListItems>
+		</Expand>
+	</Type>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+	<Type Name="hfsm2::detail::Parent">
+		<DisplayString Condition="forkId &gt; 0">({(unsigned) ( forkId - 1) &amp; 0xFF}) ► {(unsigned) prong &amp; 0xFF}</DisplayString>
+		<DisplayString Condition="forkId &lt; 0">[{(unsigned) (-forkId - 1) &amp; 0xFF}] ► {(unsigned) prong &amp; 0xFF}</DisplayString>
+	</Type>
+
+	<!-- ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
+
+	<Type Name="hfsm2::detail::CompoFork">
+		<DisplayString>[{TYPE}]: &lt;{(unsigned) resumable &amp; 0xFF}&gt; ◄ ({(unsigned) active &amp; 0xFF}) ► &lt;{(unsigned) requested &amp; 0xFF}&gt;</DisplayString>
+		<Expand HideRawView="true" />
+	</Type>
+
+	<!-- ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
+
+	<Type Name="hfsm2::detail::TransitionType">
+		<DisplayString>{type, en}: {*(std::type_index*)&amp;stateType._storage}</DisplayString>
+		<Expand HideRawView="true" />
+	</Type>
+
+	<!-- ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
+
+	<Type Name="hfsm2::detail::TransitionBase">
+		<DisplayString Condition="destination == INVALID_STATE_ID">(■)</DisplayString>
+		<DisplayString Condition="origin == INVALID_STATE_ID">(EXTERNAL ► {(unsigned) destination &amp; 0xFF}})</DisplayString>
+		<DisplayString>({(unsigned) origin &amp; 0xFF} ► {(unsigned) destination &amp; 0xFF})</DisplayString>
+		<Expand HideRawView="true" />
+	</Type>
+
+	<Type Name="hfsm2::detail::TransitionT&lt;*&gt;">
+		<DisplayString Condition="destination == INVALID_STATE_ID">(■)</DisplayString>
+		<DisplayString Condition="origin == INVALID_STATE_ID">(EXTERNAL ► {(unsigned) destination &amp; 0xFF})</DisplayString>
+		<DisplayString>({(unsigned) origin &amp; 0xFF} ► {(unsigned) destination &amp; 0xFF})</DisplayString>
+		<Expand HideRawView="true">
+			<ExpandedItem Optional="true">*((Payload*) &amp;storage)</ExpandedItem>
+		</Expand>
+	</Type>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+	<Type Name="hfsm2::detail::ControlT&lt;*&gt;">
+		<DisplayString>{_core.context}</DisplayString>
+	</Type>
+
+	<!-- ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
+
+	<Type Name="hfsm2::detail::PlanControlT&lt;*&gt;">
+		<DisplayString>({_status})</DisplayString>
+	</Type>
+
+	<!-- ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
+
+	<Type Name="hfsm2::detail::FullControlT&lt;*&gt;">
+		<DisplayString>[{_status}]</DisplayString>
+	</Type>
+
+	<!-- ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
+
+	<Type Name="hfsm2::detail::GuardControlT&lt;*,*&gt;">
+		<DisplayString>[{_status}] ({_pending})</DisplayString>
+	</Type>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+	<Type Name="hfsm2::detail::Status">
+		<DisplayString Condition="outerTransition">OuterTransition</DisplayString>
+		<DisplayString>{result}</DisplayString>
+		<Expand HideRawView="true" />
+	</Type>
+
+	<!-- ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
+
+	<Type Name="hfsm2::detail::TaskBase">
+		<DisplayString Condition="origin == INVALID_STATE_ID">(■)</DisplayString>
+		<DisplayString>({(unsigned) origin} ► {(unsigned) destination})</DisplayString>
+		<Expand HideRawView="true" />
+	</Type>
+
+	<Type Name="hfsm2::detail::TaskListT&lt;*&gt;">
+		<Expand HideRawView="true">
+			<IndexListItems Condition="_count > 0">
+				<Size>CAPACITY</Size>
+				<ValueNode>_items[$i]</ValueNode>
+			</IndexListItems>
+		</Expand>
+	</Type>
+
+	<Type Name="hfsm2::detail::TaskLink">
+		<DisplayString Condition="prev == INVALID_STATE_ID &amp;&amp; next == INVALID_STATE_ID">[■]</DisplayString>
+		<DisplayString Condition="prev == INVALID_STATE_ID">[► {(unsigned) next}]</DisplayString>
+		<DisplayString Condition="next == INVALID_STATE_ID">[{(unsigned) prev} ◄]</DisplayString>
+		<DisplayString>[{(unsigned) prev} ◄► {(unsigned) next}]</DisplayString>
+	</Type>
+
+	<Type Name="hfsm2::detail::Bounds">
+		<DisplayString>[{(unsigned) first} .. {(unsigned) last}]</DisplayString>
+		<Expand HideRawView="true" />
+	</Type>
+
+	<!-- ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
+
+	<Type Name="hfsm2::detail::PlanT&lt;*&gt;">
+		<DisplayString Condition="_bounds.first == INVALID_LONG">&lt;Empty&gt;</DisplayString>
+		<DisplayString>{_bounds}</DisplayString>
+		<Expand HideRawView="true">
+			<CustomListItems MaxItemsPerView="100">
+				<Variable Name="i" InitialValue="_bounds.first" />
+
+				<If Condition="_bounds.first != INVALID_LONG &amp;&amp; _bounds.first != _bounds.last">
+					<Loop>
+						<Item>_planData.tasks._items[i]</Item>
+						<Exec>i = _planData.taskLinks[i].next</Exec>
+						<Break Condition="i == _bounds.last" />
+					</Loop>
+					<Item>_planData.tasks._items[_bounds.last]</Item>
+				</If>
+
+				<If Condition="_bounds.first != INVALID_LONG &amp;&amp; _bounds.first == _bounds.last">
+					<Item>_planData.tasks._items[_bounds.last]</Item>
+				</If>
+
+			</CustomListItems>
+		</Expand>
+	</Type>
+
+	<!-- ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
+
+	<Type Name="hfsm2::detail::PlanT&lt;*&gt;::Iterator">
+		<DisplayString Condition="_curr == INVALID_LONG">&lt;Empty&gt;</DisplayString>
+		<DisplayString Condition="_curr != INVALID_LONG">{_plan._planData.tasks._items[_curr]}</DisplayString>
+		<Expand HideRawView="true">
+			<ExpandedItem Condition="_curr != INVALID_LONG">_plan._planData.tasks._items[_curr]</ExpandedItem>
+		</Expand>
+	</Type>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+	<Type Name="hfsm2::detail::S_&lt;*&gt;">
+		<DisplayString Optional="true">{TYPE}</DisplayString>
+		<Expand HideRawView="true" />
+	</Type>
+
+	<!-- ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
+
+	<Type Name="hfsm2::detail::C_&lt;*&gt;">
+		<DisplayString>({(HeadState) *this})</DisplayString>
+	</Type>
+
+	<Type Name="hfsm2::detail::CS_&lt;*&gt;">
+		<DisplayString Optional="true">{(LHalf) *this} {(RHalf) *this}</DisplayString>
+		<DisplayString Optional="true">{(Single) *this}</DisplayString>
+	</Type>
+
+	<!-- ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
+
+	<Type Name="hfsm2::detail::O_&lt;*&gt;">
+		<DisplayString>({(HeadState) *this})</DisplayString>
+	</Type>
+
+	<Type Name="hfsm2::detail::OS_&lt;*&gt;">
+		<DisplayString Optional="true">{(Initial) *this} {(Remaining) *this}</DisplayString>
+		<DisplayString>{(Initial) *this}</DisplayString>
+		<Expand HideRawView="true" />
+	</Type>
+
+	<!-- ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
+
+	<Type Name="hfsm2::detail::R_&lt;*&gt;">
+		<DisplayString Optional="true">{_structure}</DisplayString>
+		<DisplayString Optional="true">{_requests}</DisplayString>
+		<Expand>
+			<ExpandedItem Optional="true">_structure</ExpandedItem>
+			<ExpandedItem Optional="true">_requests</ExpandedItem>
+			<ExpandedItem Optional="true">_transitionHistory</ExpandedItem>
+		</Expand>
+	</Type>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+	<Type Name="hfsm2::Iterator&lt;*&gt;">
+		<DisplayString>[{_cursor}] = {_t[_cursor]}</DisplayString>
+		<Expand>
+			<ExpandedItem>_container</ExpandedItem>
+		</Expand>
+	</Type>
+
+	<!-- ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
+
+	<Type Name="hfsm2::StructureEntry">
+		<DisplayString Condition=" isActive">█ {prefix,sub}{name,sb}</DisplayString>
+		<DisplayString Condition="!isActive">░ {prefix,sub}{name,sb}</DisplayString>
+		<Expand HideRawView="true" />
+	</Type>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+	<Type Name="Event">
+		<DisplayString Condition="target == hfsm2::INVALID_STATE_ID"		   >{type, en} [{(unsigned)origin}]</DisplayString>
+		<DisplayString Condition="origin == hfsm2::INVALID_STATE_ID">(external) {type, en} [{(unsigned)target}]</DisplayString>
+		<DisplayString									  >[{(unsigned)origin}] {type, en} [{(unsigned)target}]</DisplayString>
+		<Expand HideRawView="true" />
+	</Type>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+</AutoVisualizer>

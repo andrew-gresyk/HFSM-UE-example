@@ -1,7 +1,7 @@
 {
 	"FileVersion": 3,
 	"Version": 1,
-	"VersionName": "2.3.0",
+	"VersionName": "2.3.1",
 	"FriendlyName": "FFSM2",
 	"Description": "Flat Finite State Machine 2",
 	"Category": "State Machines",

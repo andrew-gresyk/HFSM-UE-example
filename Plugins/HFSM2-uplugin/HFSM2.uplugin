@@ -1,7 +1,7 @@
 {
 	"FileVersion": 3,
 	"Version": 1,
-	"VersionName": "2.3.0",
+	"VersionName": "2.3.1",
 	"FriendlyName": "HFSM2",
 	"Description": "Hierarchical Finite State Machine 2",
 	"Category": "State Machines",
